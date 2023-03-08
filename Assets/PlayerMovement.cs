@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private float horizontal;
-    private float maxspeed = 12f;
+    private float maxspeed = 6f;
     private float jumpingPower = 8f;
     private float newX;
     [SerializeField] private Rigidbody2D rb;
@@ -15,10 +15,10 @@ public class PlayerMovement : MonoBehaviour
         if ((Input.GetKey("a") || Input.GetKey("d"))&& (!Input.GetKey(KeyCode.Mouse0)))
         {
             horizontal = Input.GetAxisRaw("Horizontal");
-            newX = rb.velocity.x + horizontal*0.3f;
+            newX = rb.velocity.x + horizontal*0.15f;
             if ((horizontal > 0  && rb.velocity.x < 0) || (horizontal < 0 && rb.velocity.x > 0))
             {
-                newX = rb.velocity.x + horizontal*0.15f;
+                newX = rb.velocity.x + horizontal*0.05f;
                 rb.velocity = new Vector2(newX, rb.velocity.y);
             }
             if (newX < maxspeed && newX > -maxspeed){
