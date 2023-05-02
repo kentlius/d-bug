@@ -6,7 +6,8 @@ public class RetryButton : MonoBehaviour
 {
     public void Retry()
     {
-        // restart the scene\
-        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        // restart the scene
+        string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
     }
 }

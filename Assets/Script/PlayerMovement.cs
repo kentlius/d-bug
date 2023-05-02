@@ -10,9 +10,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     public GameObject gameOverScreen;
+    public SpriteRenderer spriteRenderer;
+    private bool facingRight = true;
+    private bool doubleJumped = false;
 
     void Update()
     {
+        if ((rb.velocity.x > 0 && !facingRight) || (rb.velocity.x < 0 && facingRight))
+        {
+            facingRight = !facingRight;
+            spriteRenderer.flipX = !spriteRenderer.flipX;
+        }
         if ((Input.GetKey("a") || Input.GetKey("d"))&& (!Input.GetKey(KeyCode.Mouse0)))
         {
             horizontal = Input.GetAxisRaw("Horizontal");
@@ -63,12 +71,22 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         }
 
+        if (Input.GetButtonDown("Jump") && !IsGrounded() && !doubleJumped)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            doubleJumped = true;
+        }
+
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
-    
 
+        if (IsGrounded())
+        {
+            doubleJumped = false;
+        }
+    
     }
 
     private bool IsGrounded()
@@ -81,6 +99,8 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             gameOverScreen.SetActive(true);
+            //set time to 0
+            Time.timeScale = 0;
         }
     }
 }
