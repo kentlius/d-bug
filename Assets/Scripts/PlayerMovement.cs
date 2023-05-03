@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
-    public GameObject gameOverScreen;
     public SpriteRenderer spriteRenderer;
     private bool facingRight = true;
     private bool doubleJumped = false;
@@ -21,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
             facingRight = !facingRight;
             spriteRenderer.flipX = !spriteRenderer.flipX;
         }
+
         if ((Input.GetKey("a") || Input.GetKey("d"))&& (!Input.GetKey(KeyCode.Mouse0)))
         {
             horizontal = Input.GetAxisRaw("Horizontal");
@@ -33,39 +33,8 @@ public class PlayerMovement : MonoBehaviour
             if (newX < maxspeed && newX > -maxspeed){
                 rb.velocity = new Vector2(newX, rb.velocity.y);
             }
-            // if (IsGrounded())
-            // {
-            //     newX = rb.velocity.x + horizontal*0.5f;
-            //     rb.velocity = new Vector2(newX, rb.velocity.y);
-            // }
-            // else
-            // {
-            //     if (Input.GetKey("d")){
-            //         if (rb.velocity.x < horizontal * speed && rb.velocity.x >= 0)
-            //         {
-            //             newX = rb.velocity.x + horizontal*0.5f;
-            //             rb.velocity = new Vector2(newX, rb.velocity.y);
-            //         }
-            //         else if (rb.velocity.x < 0)
-            //         {
-            //             newX = rb.velocity.x + horizontal*0.5f;
-            //             rb.velocity = new Vector2(newX, rb.velocity.y);
-            //         }
-            //     } 
-            //     if (Input.GetKey("a")){
-            //         if (rb.velocity.x > horizontal * speed && rb.velocity.x <= 0)
-            //         {
-            //             newX = rb.velocity.x + horizontal*0.5f;
-            //             rb.velocity = new Vector2(newX, rb.velocity.y);
-            //         } else if (rb.velocity.x > 0)
-            //         {
-            //             newX = rb.velocity.x + horizontal*0.5f;
-            //             rb.velocity = new Vector2(newX, rb.velocity.y);
-            //         }
-            //     }
-                
-            // }
         }
+
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
@@ -86,21 +55,10 @@ public class PlayerMovement : MonoBehaviour
         {
             doubleJumped = false;
         }
-    
     }
 
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            gameOverScreen.SetActive(true);
-            //set time to 0
-            Time.timeScale = 0;
-        }
     }
 }
