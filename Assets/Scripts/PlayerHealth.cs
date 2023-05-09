@@ -11,8 +11,9 @@ public class PlayerHealth : MonoBehaviour
     public float invincibilityFlashDelay = 0.2f;
     public bool isInvincible = false;
     public SpriteRenderer spriteRenderer;
-    public GameObject gameOverScreen;
+    public GameObject gameOverMenuUI;
     public TextMeshProUGUI TMP_Text;
+    public static bool GameIsOver = false;
 
     void Update()
     {
@@ -32,8 +33,9 @@ public class PlayerHealth : MonoBehaviour
             {
                 Destroy(gameObject);
                 // FindObjectOfType<GameManager>().GameOver();
-                gameOverScreen.SetActive(true);
-                Time.timeScale = 0;
+                GameIsOver = true;
+                gameOverMenuUI.SetActive(true);
+                Time.timeScale = 0f;
             }
             else
             {
