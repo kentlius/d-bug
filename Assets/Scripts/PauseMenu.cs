@@ -36,12 +36,6 @@ public class PauseMenu : MonoBehaviour
         GameIsPaused = true;
     }
 
-    public void QuitGame()
-    {
-        Debug.Log("Quitting game...");
-        Application.Quit();
-    }
-
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -50,9 +44,7 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu()
     {
-        Debug.Log("Loading main menu...");
         Time.timeScale = 1f;
-        // TODO: Create a main menu scene
-        // SceneManager.LoadScene(MainMenu);
+        SceneManager.LoadScene(0);
     }
 }
