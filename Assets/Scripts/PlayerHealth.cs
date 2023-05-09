@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
     public bool isInvincible = false;
     public SpriteRenderer spriteRenderer;
     public GameObject gameOverScreen;
+    public TextMeshProUGUI TMP_Text;
 
     void Update()
     {
@@ -24,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
         if (!isInvincible)
         {
             lives -= damage;
-            Debug.Log("Lives: " + lives);
+            TMP_Text.text = "Lives: " + lives;
             if (lives <= 0)
             {
                 Destroy(gameObject);
