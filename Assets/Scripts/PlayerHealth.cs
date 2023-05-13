@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class PlayerHealth : MonoBehaviour
@@ -20,6 +18,10 @@ public class PlayerHealth : MonoBehaviour
         if (isInvincible)
         {
             spriteRenderer.enabled = !spriteRenderer.enabled;
+        }
+        else
+        {
+            spriteRenderer.enabled = true;
         }
     }
 
@@ -47,7 +49,7 @@ public class PlayerHealth : MonoBehaviour
                 {
                     GetComponent<Rigidbody2D>().AddForce(new Vector2(400f, 200f));
                 }
-                
+
                 StartCoroutine(InvincibilityFlash());
             }
         }
@@ -66,7 +68,7 @@ public class PlayerHealth : MonoBehaviour
         {
             TakeDamage(1, collision);
 
-            
+
         }
     }
 }
