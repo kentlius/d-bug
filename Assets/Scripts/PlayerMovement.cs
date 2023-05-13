@@ -3,8 +3,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private float horizontal;
-    private float maxspeed = 6f;
-    private float jumpingPower = 8f;
+    private readonly float maxspeed = 6f;
+    private readonly float jumpingPower = 8f;
     private float newX;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
             spriteRenderer.flipX = !spriteRenderer.flipX;
         }
 
-        if ((Input.GetKey("a") || Input.GetKey("d"))&& (!Input.GetKey(KeyCode.Mouse0)))
+        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))&& (!Input.GetKey(KeyCode.Mouse0)))
         {
             horizontal = Input.GetAxisRaw("Horizontal");
             newX = rb.velocity.x + horizontal*0.15f;
