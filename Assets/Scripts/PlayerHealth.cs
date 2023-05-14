@@ -13,6 +13,11 @@ public class PlayerHealth : MonoBehaviour
     public TextMeshProUGUI TMP_Text;
     public static bool GameIsOver = false;
 
+    void Start()
+    {
+        GameIsOver = false;
+    }
+
     void Update()
     {
         if (isInvincible)
