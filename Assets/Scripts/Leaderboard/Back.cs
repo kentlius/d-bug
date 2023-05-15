@@ -11,6 +11,7 @@ public class Back: MonoBehaviour
         {
             gameObject.SetActive(false);
             MainMenu.SetActive(true);
+            PlayerPrefs.DeleteKey("IsScoreBoardActive");
         }
     }
 
