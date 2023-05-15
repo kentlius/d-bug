@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
-        if (!Input.GetKey(KeyCode.Mouse0))
+        if (!Input.GetKey(KeyCode.Mouse0) && !IsGrounded())
         {
             newX = rb.velocity.x + horizontal * 0.15f;
             if ((horizontal > 0 && rb.velocity.x < 0) || (horizontal < 0 && rb.velocity.x > 0))
@@ -65,10 +65,13 @@ public class PlayerMovement : MonoBehaviour
         Flip();
     }
 
-    // private void FixedUpdate()
-    // {
-    //     rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
-    // }
+    private void FixedUpdate()
+    {
+        if (!Input.GetKey(KeyCode.Mouse0) && IsGrounded())
+        {
+            rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+        }
+    }
 
     private bool IsGrounded()
     {
