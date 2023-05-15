@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public bool doubleJumped = false;
     private float newX;
+    public Animator anim;
 
     [Header("Collision")]
     public float collisionRadius = 0.25f;
@@ -23,6 +24,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        anim.SetBool("grounded", IsGrounded());
+        anim.SetFloat("velocityX", Mathf.Abs(rb.velocity.x));
+
         horizontal = Input.GetAxisRaw("Horizontal");
         if (!Input.GetKey(KeyCode.Mouse0) && !IsGrounded())
         {
