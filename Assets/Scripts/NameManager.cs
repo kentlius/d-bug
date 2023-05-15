@@ -9,11 +9,15 @@ public class NameManager : MonoBehaviour
 {
     public TMP_InputField playerNameInput;
     public string playerName;
+
     public void save()
     {
         if (playerNameInput != null)
         {
             playerName = playerNameInput.text;
+            gameObject.SetActive(false);
+            PlayerPrefs.SetInt("IsScoreBoardActive", 1);
+            SceneManager.LoadScene("MainMenu");
         }
     }
 
