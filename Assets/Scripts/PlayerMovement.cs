@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isFacingRight = true;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask bounceLayer;
     public SpriteRenderer spriteRenderer;
     public bool doubleJumped = false;
     private float newX;
@@ -62,6 +63,11 @@ public class PlayerMovement : MonoBehaviour
             doubleJumped = false;
         }
 
+        if (Bounce())
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpingPower*2);
+        }
+
         Flip();
     }
 
@@ -76,6 +82,12 @@ public class PlayerMovement : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, groundLayer);
+    }
+
+
+    private bool Bounce()
+    {
+        return Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, bounceLayer);
     }
 
     void OnDrawGizmos()
