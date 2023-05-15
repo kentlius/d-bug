@@ -32,6 +32,5 @@ public class Timer : MonoBehaviour
         }
         ElapsedTime = stopwatch.Elapsed;
         timeText.text = ElapsedTime.ToString(@"mm\:ss\.ff");
-        UnityEngine.Debug.Log(stopwatch.IsRunning);
     }
 }
