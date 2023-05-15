@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask bounceLayer;
     [SerializeField] private LayerMask iceLayer;
     public SpriteRenderer spriteRenderer;
+    public Animator anim;
     public bool doubleJumped = false;
     private float newX;
 
@@ -26,6 +27,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        anim.SetBool("grounded", IsGrounded());
+        anim.SetFloat("velocityX", Mathf.Abs(rb.velocity.x));
+
         horizontal = Input.GetAxisRaw("Horizontal");
         if (!Input.GetKey(KeyCode.Mouse0) && !IsGrounded())
         {
