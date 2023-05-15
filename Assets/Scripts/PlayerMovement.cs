@@ -4,15 +4,17 @@ public class PlayerMovement : MonoBehaviour
 {
     private float horizontal;
     private readonly float speed = 6f;
+    private readonly float icespeed = 10f;
     private readonly float jumpingPower = 8f;
+    private readonly float jumpingPowerIce = 2f;
     private bool isFacingRight = true;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask bounceLayer;
+    [SerializeField] private LayerMask iceLayer;
     public SpriteRenderer spriteRenderer;
     public bool doubleJumped = false;
     private float newX;
-    public Animator anim;
 
     [Header("Collision")]
     public float collisionRadius = 0.25f;
@@ -24,9 +26,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        anim.SetBool("grounded", IsGrounded());
-        anim.SetFloat("velocityX", Mathf.Abs(rb.velocity.x));
-
         horizontal = Input.GetAxisRaw("Horizontal");
         if (!Input.GetKey(KeyCode.Mouse0) && !IsGrounded())
         {
@@ -46,6 +45,11 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
         }
+        
+        if (Input.GetButtonDown("Jump") && Ice())
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpingPowerIce);
+        }
 
         if (rb.velocity.y < 0)
         {
@@ -62,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
             doubleJumped = true;
         }
 
-        if (IsGrounded())
+        if (IsGrounded() || Ice())
         {
             doubleJumped = false;
         }
@@ -81,6 +85,10 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
         }
+        if (!Input.GetKey(KeyCode.Mouse0) && Ice())
+        {
+            rb.velocity = new Vector2(horizontal * icespeed, rb.velocity.y);
+        }
     }
 
     private bool IsGrounded()
@@ -88,12 +96,15 @@ public class PlayerMovement : MonoBehaviour
         return Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, groundLayer);
     }
 
-
     private bool Bounce()
     {
         return Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, bounceLayer);
     }
 
+    private bool Ice()
+    {
+        return Physics2D.OverlapCircle((Vector2)transform.position + bottomOffset, collisionRadius, iceLayer);
+    }
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
