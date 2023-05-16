@@ -7,12 +7,12 @@ public class ScoreUI : MonoBehaviour
     public RowUI rowUI;
     public ScoreManager scoreManager;
 
-    void Start()
+    void OnEnable()
     {
-        // scoreManager.AddScore(new Score("Kent", new TimeSpan(0, 1, 35), "16-05-2023"));
-        scoreManager.AddScore(new Score("Kent", new TimeSpan(0, 0, 49), "16-05-2023"));
-        scoreManager.AddScore(new Score("Kent", new TimeSpan(0, 2, 22), "16-05-2023"));
-        scoreManager.AddScore(new Score("Kent", new TimeSpan(0, 1, 34), "16-05-2023"));
+
+        // if (winning condition) {     
+            scoreManager.AddScore(new Score("Kent", new TimeSpan(0, 0, 49), "16-05-2023"));
+        // }
         var scores = scoreManager.GetHighScores().ToArray();
         for (int i = 0; i < scores.Length; i++)
         {
