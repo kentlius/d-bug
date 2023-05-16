@@ -10,7 +10,6 @@ public class ScoreManager: MonoBehaviour
     {
         // Uncomment untuk delete score
         // PlayerPrefs.DeleteAll();
-
         var json = PlayerPrefs.GetString("scores", "{}");
         sd = JsonUtility.FromJson<ScoreData> (json);
     }

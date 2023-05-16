@@ -8,6 +8,9 @@ public class Timer : MonoBehaviour
     private Stopwatch stopwatch;
     public TimeSpan ElapsedTime { get; private set; }
     public TextMeshProUGUI timeText;
+    private TimeSpan savedTime;
+
+
 
     void Start()
     {
@@ -21,12 +24,16 @@ public class Timer : MonoBehaviour
         {
             stopwatch.Stop();
         }
-
+        if (Finish.isGameFinished)
+        {
+            stopwatch.Stop();
+            PlayerPrefs.SetString("SavedTime", ElapsedTime.ToString(@"mm\:ss\.ff"));
+        }
         if (PauseMenu.GameIsPaused)
         {
             stopwatch.Stop();
         }
-        else
+        else if (!Finish.isGameFinished && !PlayerHealth.GameIsOver)
         {
             stopwatch.Start();
         }

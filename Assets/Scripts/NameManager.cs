@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class NameManager : MonoBehaviour
 {
     public TMP_InputField playerNameInput;
-    public string playerName;
+    public static string playerName;
 
     public void save()
     {
@@ -16,8 +16,7 @@ public class NameManager : MonoBehaviour
         {
             playerName = playerNameInput.text;
             gameObject.SetActive(false);
-            PlayerPrefs.SetInt("IsScoreBoardActive", 1);
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("Ending");
         }
     }
 

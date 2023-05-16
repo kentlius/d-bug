@@ -16,7 +16,16 @@ public class SceneManagement : MonoBehaviour
         waitTime -= Time.deltaTime;
         if (waitTime <= 0)
         {
-            SceneManager.LoadScene(sceneName);
+            if (sceneName == "MainMenu") 
+            {
+                PlayerPrefs.SetInt("IsScoreBoardActive", 1);
+                SceneManager.LoadScene(sceneName);
+            }
+            else
+            {
+                SceneManager.LoadScene(sceneName);
+            }
+            
         }
     }
 }
