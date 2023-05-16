@@ -28,6 +28,10 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         anim.SetBool("grounded", IsGrounded());
+        if (Ice())
+        {
+            anim.SetBool("grounded", Ice());
+        }
         anim.SetFloat("velocityX", Mathf.Abs(rb.velocity.x));
 
         horizontal = Input.GetAxisRaw("Horizontal");
